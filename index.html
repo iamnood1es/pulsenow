@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PulseNow — Breaking Stories</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+:root{
+  --bg:#f1f3f4;--card:#fff;--fg:#202124;--muted:#5f6368;--border:#dadce0;--accent:#1a73e8;
+}
+.dark{
+  --bg:#121212;--card:#1e1e1e;--fg:#e8eaed;--muted:#9aa0a6;--border:#303134;--accent:#8ab4f8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg)}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);z-index:10}
+.top{max-width:1100px;margin:auto;padding:10px 14px;display:flex;gap:10px;align-items:center}
+.logo{font-weight:700}
+.search{flex:1}
+.search input{width:100%;padding:10px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--fg)}
+.toggle{cursor:pointer;font-size:13px;color:var(--accent)}
+main{max-width:1100px;margin:14px auto;padding:0 14px;display:grid;grid-template-columns:2fr 1fr;gap:14px}
+@media(max-width:800px){main{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+.news h3{margin:0 0 6px}
+.news p{margin:0;color:var(--muted)}
+.meta{font-size:12px;color:var(--muted);margin-top:6px}
+
+.btn{border:1px solid var(--border);background:var(--card);color:var(--fg);padding:10px 14px;border-radius:999px;cursor:pointer}
+.center{text-align:center}
+
+/* Overlay */
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999}
+
+/* Google-like Ad */
+.ad-google,.ad-fb{width:92%;max-width:420px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);overflow:hidden}
+.dark .ad-google,.dark .ad-fb{background:#1f1f1f;color:#e8eaed}
+.ad-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #e0e0e0}
+.dark .ad-head{border-color:#303134}
+.badge{font-size:11px;color:#1a73e8;border:1px solid #1a73e8;border-radius:3px;padding:1px 4px}
+.close{cursor:pointer;color:#5f6368}
+.body{padding:14px}
+.title{font-weight:700;margin:0 0 6px}
+.url{font-size:12px;color:#1a73e8;margin-bottom:8px}
+.input{width:100%;padding:10px;border:1px solid #dadce0;border-radius:8px}
+.dark .input{background:#121212;color:#e8eaed;border-color:#303134}
+.count{font-size:12px;color:#d93025;margin-top:6px}
+.warn{display:none;margin-top:10px;color:#d93025;font-weight:700}
+
+/* Facebook-like */
+.fb-top{display:flex;gap:8px;align-items:center}
+.avatar{width:28px;height:28px;border-radius:50%;background:#1877f2}
+.fb-name{font-weight:700;font-size:13px}
+.fb-sub{font-size:12px;color:#65676b}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <div class="logo">PulseNow</div>
+    <div class="search"><input id="q" placeholder="Search news…" oninput="filterNews()"></div>
+    <div class="toggle" onclick="toggleDark()">Dark</div>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <div id="list"></div>
+    <div class="center" style="margin-top:10px">
+      <button class="btn" onclick="loadMore()">Load more</button>
+    </div>
+  </section>
+
+  <aside class="card">
+    <h3>Live Stats</h3>
+    <p>Winners online: <strong id="winners">1,284</strong></p>
+    <p class="meta">Updated every few seconds</p>
+  </aside>
+</main>
+
+<div id="overlay">
+  <!-- Google -->
+  <div class="ad-google" id="adG" hidden>
+    <div class="ad-head">
+      <span class="badge">Ad • Sponsored</span>
+      <span class="close" onclick="closeAd()">✕</span>
+    </div>
+    <div class="body">
+      <p class="title">Congratulations! You’re selected 🎉</p>
+      <div class="url">rewards-now.example</div>
+      <p id="prizeG"></p>
+      <input class="input" placeholder="Card number to claim" onfocus="reveal()">
+      <div class="count">Offer expires in <span id="timer">02:59</span></div>
+      <div class="warn" id="warn">🚨 PARODY SCAM 🚨 Never enter card details on ads.</div>
+    </div>
+  </div>
+
+  <!-- Facebook -->
+  <div class="ad-fb" id="adF" hidden>
+    <div class="ad-head">
+      <div class="fb-top">
+        <div class="avatar"></div>
+        <div>
+          <div class="fb-name">Pulse Rewards</div>
+          <div class="fb-sub">Sponsored</div>
+        </div>
+      </div>
+      <span class="close" onclick="closeAd()">✕</span>
+    </div>
+    <div class="body">
+      <p class="title">You won a surprise 🎁</p>
+      <p id="prizeF"></p>
+      <input class="input" placeholder="Confirm to continue" onfocus="reveal()">
+      <div class="count">Ends in <span id="timer2">02:59</span></div>
+      <div class="warn" id="warn2">😂 Gotcha! This is a joke scam.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const newsBase = [
+  "Scientists confirm cats understand Wi‑Fi but ignore it on purpose",
+  "Man buys smart fridge, fridge starts dieting him",
+  "Hidden TV discovered inside wall after 12 years",
+  "Waterproof towel finally proven unnecessary",
+  "City installs AI traffic light that judges drivers",
+  "Experts warn: socks vanish due to pocket dimension",
+  "New phone update makes battery feel emotions",
+  "Diet fridge opens only when you behave"
+];
+let page=0;
+
+function render(items){
+  const list=document.getElementById('list');
+  items.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='news';
+    d.innerHTML=`<h3>${t}</h3><p>Breaking • Very reliable sources</p><div class="meta">Just now</div>`;
+    list.appendChild(d);
+  });
+}
+function loadMore(){
+  const more = newsBase.map(t=>t+" (Exclusive)");
+  render(more);
+}
+render(newsBase);
+
+function filterNews(){
+  const q=document.getElementById('q').value.toLowerCase();
+  document.querySelectorAll('.news').forEach(n=>{
+    n.style.display = n.innerText.toLowerCase().includes(q)?'block':'none';
+  });
+}
+
+// Stats
+setInterval(()=>{
+  const w=document.getElementById('winners');
+  w.textContent = (parseInt(w.textContent.replace(',','')) + Math.floor(Math.random()*5)).toLocaleString();
+},3000);
+
+// Dark
+function toggleDark(){document.body.classList.toggle('dark')}
+
+// Ads
+const prizes = [
+  "a bag of Chipsy 🍟",
+  "a waterproof towel 🧻💦",
+  "a hidden fridge for dieting 🥶🥗",
+  "a PlayStation 5 🎮",
+  "100 million dollars 💰",
+  "24 Lamborghini cars 🚗🚗",
+  "dinner with Michael Jackson 🕺🍽️"
+];
+
+function showAd(){
+  setTimeout(()=>{
+    const google = Math.random()<0.5;
+    document.getElementById('overlay').style.display='flex';
+    if(google){
+      adG.hidden=false; adF.hidden=true;
+      prizeG.innerHTML = "You won <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
+    }else{
+      adF.hidden=false; adG.hidden=true;
+      prizeF.innerHTML = "Claim <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
+    }
+    startTimer();
+  }, Math.random()*5000+3000);
+}
+let t=179, intv;
+function startTimer(){
+  clearInterval(intv); t=179;
+  intv=setInterval(()=>{
+    const m=String(Math.floor(t/60)).padStart(2,'0');
+    const s=String(t%60).padStart(2,'0');
+    timer.textContent=timer2.textContent=`${m}:${s}`;
+    if(--t<0) clearInterval(intv);
+  },1000);
+}
+function reveal(){
+  warn.style.display='block';
+  warn2.style.display='block';
+  alert("Parody alert 😄 This page teaches how scam ads look.");
+}
+function closeAd(){overlay.style.display='none'}
+
+showAd();
+</script>
+</body>
+</html>
