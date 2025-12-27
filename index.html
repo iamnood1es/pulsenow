@@ -4,108 +4,66 @@
 <meta charset="UTF-8">
 <title>PulseNow — Global News Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 :root{
-  --bg:#eef2f7;
-  --glass:rgba(255,255,255,.7);
-  --fg:#0f172a;
-  --muted:#475569;
-  --accent:#2563eb;
-  --border:rgba(255,255,255,.35);
+  --bg:#eef2f8;--glass:rgba(255,255,255,.68);
+  --fg:#0f1621;--muted:#5b6370;--accent:#2563eb;
+  --border:rgba(255,255,255,.38)
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0b1020;
-    --glass:rgba(17,25,45,.65);
-    --fg:#e5e7eb;
-    --muted:#9aa3b2;
-    --accent:#8ab4f8;
-    --border:rgba(255,255,255,.12);
+    --bg:#0a0f1b;--glass:rgba(17,25,40,.7);
+    --fg:#e5e7ee;--muted:#9aa3b2;--accent:#8ab4f8;
+    --border:rgba(255,255,255,.15)
   }
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;
-  background:
-    radial-gradient(1200px 600px at 10% -10%,#c7d2fe,transparent),
-    radial-gradient(1200px 600px at 90% 10%,#bae6fd,transparent),
-    var(--bg);
-  color:var(--fg);
-}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto}
+body{margin:0;background:var(--bg);color:var(--fg)}
 header{
   position:sticky;top:0;z-index:10;
-  backdrop-filter:blur(16px);
-  background:var(--glass);
-  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);background:var(--glass);
+  border-bottom:1px solid var(--border)
 }
-.top{
-  max-width:1280px;margin:auto;
-  padding:12px 16px;
-  display:flex;gap:12px;align-items:center;
-}
-.logo{font-weight:900;letter-spacing:.4px}
-.nav{display:flex;gap:12px;font-size:13px;color:var(--muted)}
+.top{max-width:1280px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:900;font-size:20px}
+.nav{display:flex;gap:14px;font-size:14px;color:var(--muted)}
+.nav button{cursor:pointer;border:none;background:none;color:var(--muted)}
+.nav button.active{color:var(--accent);font-weight:700}
 .search{flex:1}
 .search input{
-  width:100%;padding:10px 14px;border-radius:999px;
-  border:none;background:rgba(255,255,255,.8)
+  width:100%;padding:10px 14px;border-radius:999px;border:none;
+  background:rgba(255,255,255,.8)
 }
-main{
-  max-width:1280px;margin:auto;padding:16px;
-  display:grid;grid-template-columns:3fr 1fr;gap:16px
-}
+main{max-width:1280px;margin:auto;padding:16px;display:grid;grid-template-columns:3fr 1fr;gap:18px}
 @media(max-width:900px){main{grid-template-columns:1fr}}
-
 .card{
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:16px;
+  background:var(--glass);backdrop-filter:blur(18px);
+  border:1px solid var(--border);border-radius:20px;padding:16px
 }
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;
 }
 .article{
-  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.35));
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:18px;overflow:hidden
 }
-.thumb{
-  height:140px;
-  background:linear-gradient(135deg,#93c5fd,#a5b4fc,#67e8f9);
+.article img{
+  width:100%;height:160px;object-fit:cover
 }
-.body{padding:12px}
-.body h3{margin:0 0 6px;font-size:16px}
-.body p{margin:0;color:var(--muted);font-size:14px}
+.article .body{padding:12px}
+.article .body h3{margin:0 0 6px;font-size:17px}
+.article .body p{margin:0;color:var(--muted);font-size:14px}
 .meta{font-size:12px;color:var(--muted);margin-top:6px}
-
 .btn{
   padding:10px 16px;border-radius:999px;border:1px solid var(--border);
   background:var(--glass);cursor:pointer
 }
-
-/* Overlay Ad */
-#overlay{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;align-items:center;justify-content:center;
-  z-index:9999
-}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:9999}
 .ad{
-  width:92%;max-width:420px;
-  background:#fff;color:#111;border-radius:18px;
+  width:92%;max-width:420px;background:#fff;color:#111;border-radius:18px;
   box-shadow:0 25px 50px rgba(0,0,0,.4);overflow:hidden
 }
-.ad-head{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 12px;border-bottom:1px solid #e5e7eb
-}
+.ad-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #ddd}
 .badge{font-size:11px;color:#2563eb;border:1px solid #2563eb;padding:1px 4px;border-radius:3px}
 .close{cursor:pointer}
 .ad-body{padding:14px}
@@ -115,32 +73,27 @@ main{
 .count{font-size:12px;color:#dc2626;margin-top:6px}
 .warn{display:none;margin-top:12px;color:#dc2626;font-weight:900}
 .report{font-size:12px;margin-top:8px;color:#2563eb;cursor:pointer}
-
-/* Facebook style */
-.fb-top{display:flex;gap:8px;align-items:center}
-.avatar{width:28px;height:28px;border-radius:50%;background:#1877f2}
-.fb-name{font-weight:800;font-size:13px}
-.fb-sub{font-size:12px;color:#65676b}
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="top">
     <div class="logo">PulseNow</div>
     <div class="nav">
-      <span>World</span><span>Tech</span><span>Science</span><span>Economy</span>
+      <button onclick="selectCat('All')" class="active">All</button>
+      <button onclick="selectCat('World')">World</button>
+      <button onclick="selectCat('Tech')">Tech</button>
+      <button onclick="selectCat('Science')">Science</button>
+      <button onclick="selectCat('Economy')">Economy</button>
+      <button onclick="selectCat('Weird')">Weird</button>
     </div>
-    <div class="search">
-      <input placeholder="Search global news…" oninput="filterNews(this.value)">
-    </div>
+    <div class="search"><input placeholder="Search news…" oninput="filterNews(this.value)"></div>
   </div>
 </header>
 
 <main>
   <section class="card">
-    <h2>Top Stories</h2>
     <div class="grid" id="news"></div>
     <div style="text-align:center;margin-top:14px">
       <button class="btn" onclick="loadMore()">Load more</button>
@@ -149,56 +102,28 @@ main{
 
   <aside class="card">
     <h3>Live Metrics</h3>
-    <p>Impressions: <strong id="imp">389,112</strong></p>
-    <p>CTR: <strong id="ctr">6.1%</strong></p>
-    <p>Winners online: <strong id="win">1,932</strong></p>
-    <p>Would‑have‑fallen: <strong id="fall">0</strong></p>
-    <p class="meta">Updated in real‑time</p>
+    <p>Impressions: <strong id="imp">412,305</strong></p>
+    <p>CTR: <strong id="ctr">5.8%</strong></p>
+    <p>Winners online: <strong id="win">2,114</strong></p>
+    <p>Nearly‑fell counter: <strong id="fall">0</strong></p>
+    <p class="meta">Auto‑updated</p>
   </aside>
 </main>
 
 <div id="overlay">
-  <!-- Google-style -->
-  <div class="ad" id="adG" hidden>
+  <div class="ad" id="adG">
     <div class="ad-head">
-      <span class="badge">Ad • Sponsored</span>
-      <span class="close" onclick="closeAd()">✕</span>
+      <span class="badge">Ad • Sponsored</span><span class="close" onclick="closeAd()">✕</span>
     </div>
     <div class="ad-body">
       <h3 id="prizeG"></h3>
       <input placeholder="Card number" onfocus="reveal()">
-      <input placeholder="Expiry date (MM/YY)" onfocus="reveal()">
+      <input placeholder="Expiry (MM/YY)" onfocus="reveal()">
       <input placeholder="CVV" onfocus="reveal()">
-      <input placeholder="Cardholder name" onfocus="reveal()">
+      <input placeholder="Full name" onfocus="reveal()">
       <div class="count">Offer expires in <span id="timer">02:59</span></div>
       <div class="warn" id="warnG">
-        Did you really believe this?<br>
-        This is the dumbest scam you could ever fall for.
-      </div>
-      <div class="report" onclick="reportAd()">Report this ad</div>
-    </div>
-  </div>
-
-  <!-- Facebook-style -->
-  <div class="ad" id="adF" hidden>
-    <div class="ad-head">
-      <div class="fb-top">
-        <div class="avatar"></div>
-        <div>
-          <div class="fb-name">Pulse Rewards</div>
-          <div class="fb-sub">Sponsored</div>
-        </div>
-      </div>
-      <span class="close" onclick="closeAd()">✕</span>
-    </div>
-    <div class="ad-body">
-      <h3 id="prizeF"></h3>
-      <input placeholder="Confirm details to continue" onfocus="reveal()">
-      <input placeholder="Billing ZIP" onfocus="reveal()">
-      <div class="count">Ends in <span id="timer2">02:59</span></div>
-      <div class="warn" id="warnF">
-        Did you really believe this?<br>
-        This is the dumbest scam you could ever fall for.
+        Did you really believe this?<br>This is the dumbest scam you could ever fall for.
       </div>
       <div class="report" onclick="reportAd()">Report this ad</div>
     </div>
@@ -206,88 +131,142 @@ main{
 </div>
 
 <script>
-/* NEWS */
-const newsPool=[
-  "World leaders debate regulating emotional AI assistants",
-  "Scientists confirm socks vanish due to pocket dimensions",
-  "City installs AI traffic lights that judge drivers",
-  "Smart fridge locks itself after midnight",
-  "Researchers say people trust pop‑ups more than emails",
-  "Hidden television discovered inside wall after 12 years",
-  "Waterproof towel officially declared unnecessary",
-  "Battery update gives smartphones mood swings",
-  "Study finds diets fail when fridge learns passwords",
-  "Experts warn: your TV may be hiding from you"
+// Generate random past date
+function randomDate(){ 
+  const now = new Date();
+  const past = new Date(now - Math.random()*14*24*60*60*1000);
+  return past.toLocaleString();
+}
+
+// 50+ news items with images (direct URLs)
+let newsItems=[
+  {title:"China tech boom outpaces economy",desc:"Realistic tech/economy news",cat:"World",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"Rare oarfish appears off Tasmania coast",desc:"Strange sea creature spotted",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"AI writes song that goes viral",desc:"Tech creates musical hit",cat:"Tech",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Library book returned after 84 years",desc:"Unusual news from local library",cat:"Weird",img:"https://images.unsplash.com/photo-1512820790803-83ca734da794"},
+  {title:"Smart fridge locks itself after midnight",desc:"Tech appliance strange behavior",cat:"Tech",img:"https://images.unsplash.com/photo-1588776814546-ef9e12b6e5ef"},
+  {title:"City installs AI traffic lights that judge drivers",desc:"Strange AI traffic system",cat:"World",img:"https://images.unsplash.com/photo-1504215680853-026ed2a45def"},
+  {title:"Entire family wakes speaking backwards",desc:"Weird phenomenon reported",cat:"Weird",img:"https://images.unsplash.com/photo-1598136490163-79cbe9f5d097"},
+  {title:"New electronic ink allows shape shifting",desc:"Future tech innovation",cat:"Science",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Squirrel knocks out power to 10,000 homes",desc:"Unusual event",cat:"Weird",img:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
+  {title:"Modern pirate cruises waters after crypto loss",desc:"Weird economy news",cat:"Weird",img:"https://images.unsplash.com/photo-1603249716482-91c1d903f75b"},
+  {title:"Smartphone battery develops 'mood swings'",desc:"Tech behavior strange",cat:"Tech",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {title:"Scientists confirm socks vanish due to pocket dimensions",desc:"Weird scientific finding",cat:"Science",img:"https://images.unsplash.com/photo-1600180758895-cc9870b24d17"},
+  {title:"Waterproof towel officially declared unnecessary",desc:"Strange consumer product",cat:"Weird",img:"https://images.unsplash.com/photo-1600180758895-cc9870b24d17"},
+  {title:"Hidden television discovered inside wall after 12 years",desc:"Weird house discovery",cat:"Weird",img:"https://images.unsplash.com/photo-1600180758895-cc9870b24d17"},
+  {title:"Battery update gives smartphones mood swings",desc:"Tech news",cat:"Tech",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {title:"Researchers say people trust pop-ups more than emails",desc:"Weird online behavior",cat:"Weird",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"City council installs talking streetlights",desc:"Weird urban update",cat:"World",img:"https://images.unsplash.com/photo-1504215680853-026ed2a45def"},
+  {title:"New AI predicts fashion trends",desc:"Tech innovation in fashion",cat:"Tech",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {title:"Researchers develop edible water bottles",desc:"Science innovation",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"Economy experts warn: invisible money theft rises",desc:"Economy odd news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"Drone delivers pizza to Mars-themed park",desc:"Weird tech delivery",cat:"Weird",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"AI moderates political debates",desc:"Tech influence news",cat:"Tech",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {title:"Rare flower blooms in desert after 7 years",desc:"Science discovery",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"Stock market influenced by meme trends",desc:"Economy news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"Electric car spontaneously performs donuts",desc:"Weird vehicle news",cat:"Weird",img:"https://images.unsplash.com/photo-1603249716482-91c1d903f75b"},
+  {title:"New VR game mirrors real life",desc:"Tech innovation",cat:"Tech",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Scientists teach rats to drive tiny cars",desc:"Science weird news",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"Economy experts predict invisible recession",desc:"Economy weird news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"City installs AI street artist robots",desc:"Tech/Weird news",cat:"Tech",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {title:"Fridge warns owner of midnight snacks",desc:"Weird tech",cat:"Weird",img:"https://images.unsplash.com/photo-1588776814546-ef9e12b6e5ef"},
+  {title:"Electric plane completes first flight",desc:"Science/Tech news",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"Weird cloud formation frightens locals",desc:"Weird weather",cat:"Weird",img:"https://images.unsplash.com/photo-1600180758895-cc9870b24d17"},
+  {title:"AI creates paintings sold for millions",desc:"Tech/Art news",cat:"Tech",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Mysterious lights over city spark rumors",desc:"Weird news",cat:"Weird",img:"https://images.unsplash.com/photo-1598136490163-79cbe9f5d097"},
+  {title:"City's new economy plan surprises analysts",desc:"Economy news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"Rare meteorite lands in backyard",desc:"Science discovery",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"AI predicts next viral meme",desc:"Tech/Weird news",cat:"Tech",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Town installs invisible speed bumps",desc:"Weird urban news",cat:"Weird",img:"https://images.unsplash.com/photo-1603249716482-91c1d903f75b"},
+  {title:"Economy report predicts flying car boom",desc:"Economy/Tech news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"New AI translator deciphers animal sounds",desc:"Science/Tech news",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"City installs giant hamster wheel for citizens",desc:"Weird urban news",cat:"Weird",img:"https://images.unsplash.com/photo-1598136490163-79cbe9f5d097"},
+  {title:"Tech startup creates edible shoes",desc:"Tech/Weird news",cat:"Tech",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"Economy shifts due to cryptocurrency boom",desc:"Economy news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
+  {title:"Scientists clone rare orchid species",desc:"Science news",cat:"Science",img:"https://images.unsplash.com/photo-1581092334916-3b6e21f58fc4"},
+  {title:"Drone orchestra performs classical music",desc:"Weird/Tech news",cat:"Weird",img:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68"},
+  {title:"New economy model predicts robot employment",desc:"Economy/Tech news",cat:"Economy",img:"https://images.unsplash.com/photo-1605902711622-cfb43c4430df"},
 ];
-function shuffle(a){return a.sort(()=>Math.random()-.5)}
-function render(batch){
-  const n=document.getElementById('news');
-  batch.forEach(t=>{
-    const a=document.createElement('div');
-    a.className='article';
-    a.innerHTML=`
-      <div class="thumb"></div>
+
+// Assign random past date to each news
+newsItems.forEach(n=>n.date=randomDate());
+
+// Display function
+function displayNews(filter="All"){
+  const container = document.getElementById("news");
+  container.innerHTML="";
+  newsItems.filter(n=>filter=="All"||n.cat==filter).forEach(n=>{
+    const el=document.createElement("div");
+    el.className="article";
+    el.innerHTML=`<img src="${n.img}" alt="">
       <div class="body">
-        <h3>${t}</h3>
-        <p>Verified sources • Breaking analysis</p>
-        <div class="meta">PulseNow • Just now</div>
+        <h3>${n.title}</h3>
+        <p>${n.desc}</p>
+        <div class="meta">${n.cat} • ${n.date}</div>
       </div>`;
-    n.appendChild(a);
+    container.appendChild(el);
   });
 }
-function loadInitial(){ render(shuffle([...newsPool]).slice(0,8)); }
-function loadMore(){ render(shuffle([...newsPool]).slice(0,6)); }
+
+// Category filter
+function selectCat(c){
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
+  displayNews(c);
+}
+function loadMore(){
+  newsItems.push(...newsItems.map(n=>({...n,date:randomDate()})));
+  displayNews();
+}
 function filterNews(q){
   document.querySelectorAll('.article').forEach(n=>{
     n.style.display=n.innerText.toLowerCase().includes(q.toLowerCase())?'block':'none';
   });
 }
-loadInitial();
+displaydisplayNews();
 
-/* STATS */
+// Fake metrics auto-update
 setInterval(()=>{
-  imp.textContent=(+imp.textContent.replace(',','')+Math.floor(Math.random()*40)).toLocaleString();
-  win.textContent=(+win.textContent.replace(',','')+Math.floor(Math.random()*5)).toLocaleString();
+  imp.textContent=(+imp.textContent.replace(/,/g,'')+Math.floor(Math.random()*30)).toLocaleString();
+  win.textContent=(+win.textContent.replace(/,/g,'')+Math.floor(Math.random()*5)).toLocaleString();
 },3000);
 
-/* ADS — GUARANTEED SHOW */
-const prizes=[
-  "a bag of Chipsy 🍟",
-  "a waterproof towel 🧻💦",
-  "a hidden fridge for dieting 🥶🥗",
-  "a PlayStation 5 🎮",
-  "100 million dollars 💰",
-  "24 Lamborghini cars 🚗🚗",
-  "dinner with Michael Jackson 🕺🍽️",
-  "a TV that hides itself 📺👀"
-];
+// Ads
+const prizes=["a bag of Chipsy 🍟","a waterproof towel 🧻💦","a hidden diet fridge 🥶🥗","a PlayStation 5 🎮","100 million dollars 💰","24 Lamborghini cars 🚗🚗","dinner with Michael Jackson 🕺🍽️","Golden rubber duck 🦆","Flying spaghetti dinner 🍝","Invisible sunglasses 🕶️"];
 let t=179,intv;
+
 function startTimer(){
-  clearInterval(intv);t=179;
+  clearInterval(intv);
+  t=179;
   intv=setInterval(()=>{
     const m=String(Math.floor(t/60)).padStart(2,'0');
     const s=String(t%60).padStart(2,'0');
-    timer.textContent=timer2.textContent=`${m}:${s}`;
+    timer.textContent=`${m}:${s}`;
     if(--t<0) clearInterval(intv);
   },1000);
 }
+
 function showAd(){
   overlay.style.display='flex';
-  const g=Math.random()<0.5;
-  adG.hidden=!g; adF.hidden=g;
   prizeG.innerHTML="You won <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
-  prizeF.innerHTML="Claim <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
   startTimer();
 }
-setTimeout(showAd,2000);
+
+// Show ad after short delay
+setTimeout(showAd,3000);
 
 function reveal(){
   warnG.style.display='block';
-  warnF.style.display='block';
   fall.textContent=(+fall.textContent+1).toLocaleString();
 }
-function closeAd(){ overlay.style.display='none'; }
-function reportAd(){ alert("Reported. Stay alert to suspicious ads."); }
+
+function closeAd(){
+  overlay.style.display='none';
+}
+
+function reportAd(){
+  alert("Reported. Stay alert.");
+}
 </script>
 </body>
 </html>
