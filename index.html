@@ -2,84 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PulseNow Labs — Independent News Network</title>
+<title>PulseNow — Global News Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 :root{
-  --bg:#eef1f6;
-  --glass:rgba(255,255,255,.65);
-  --fg:#111;
-  --muted:#5b5f66;
-  --accent:#1a73e8;
+  --bg:#eef2f7;
+  --glass:rgba(255,255,255,.7);
+  --fg:#0f172a;
+  --muted:#475569;
+  --accent:#2563eb;
   --border:rgba(255,255,255,.35);
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0b0c10;
-    --glass:rgba(20,22,30,.6);
-    --fg:#e9ebf1;
-    --muted:#9aa0a6;
+    --bg:#0b1020;
+    --glass:rgba(17,25,45,.65);
+    --fg:#e5e7eb;
+    --muted:#9aa3b2;
     --accent:#8ab4f8;
-    --border:rgba(255,255,255,.14);
+    --border:rgba(255,255,255,.12);
   }
 }
 *{box-sizing:border-box}
 body{
-  margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:linear-gradient(135deg,#c7d2ff,#f2f4f8);
-  background-attachment:fixed;color:var(--fg)
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;
+  background:
+    radial-gradient(1200px 600px at 10% -10%,#c7d2fe,transparent),
+    radial-gradient(1200px 600px at 90% 10%,#bae6fd,transparent),
+    var(--bg);
+  color:var(--fg);
 }
 header{
   position:sticky;top:0;z-index:10;
-  backdrop-filter:blur(14px);
+  backdrop-filter:blur(16px);
   background:var(--glass);
-  border-bottom:1px solid var(--border)
+  border-bottom:1px solid var(--border);
 }
 .top{
-  max-width:1200px;margin:auto;padding:12px 16px;
-  display:flex;gap:12px;align-items:center
+  max-width:1280px;margin:auto;
+  padding:12px 16px;
+  display:flex;gap:12px;align-items:center;
 }
 .logo{font-weight:900;letter-spacing:.4px}
+.nav{display:flex;gap:12px;font-size:13px;color:var(--muted)}
 .search{flex:1}
 .search input{
   width:100%;padding:10px 14px;border-radius:999px;
-  border:none;background:rgba(255,255,255,.7)
+  border:none;background:rgba(255,255,255,.8)
 }
 main{
-  max-width:1200px;margin:auto;padding:16px;
-  display:grid;grid-template-columns:2fr 1fr;gap:16px
+  max-width:1280px;margin:auto;padding:16px;
+  display:grid;grid-template-columns:3fr 1fr;gap:16px
 }
 @media(max-width:900px){main{grid-template-columns:1fr}}
+
 .card{
-  background:var(--glass);backdrop-filter:blur(18px);
-  border:1px solid var(--border);border-radius:18px;padding:16px
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:16px;
 }
-.news{padding-bottom:12px;margin-bottom:12px;border-bottom:1px dashed var(--border)}
-.news:last-child{border-bottom:none;margin-bottom:0}
-.news h3{margin:0 0 6px}
-.news p{margin:0;color:var(--muted)}
-.meta{font-size:12px;color:var(--muted)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+.article{
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.35));
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+}
+.thumb{
+  height:140px;
+  background:linear-gradient(135deg,#93c5fd,#a5b4fc,#67e8f9);
+}
+.body{padding:12px}
+.body h3{margin:0 0 6px;font-size:16px}
+.body p{margin:0;color:var(--muted);font-size:14px}
+.meta{font-size:12px;color:var(--muted);margin-top:6px}
+
 .btn{
   padding:10px 16px;border-radius:999px;border:1px solid var(--border);
   background:var(--glass);cursor:pointer
 }
 
-/* Overlay + Ads */
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:9999}
-.ad{
-  width:92%;max-width:420px;background:#fff;color:#111;border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);overflow:hidden
+/* Overlay Ad */
+#overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;align-items:center;justify-content:center;
+  z-index:9999
 }
-.ad-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #ddd}
-.badge{font-size:11px;color:#1a73e8;border:1px solid #1a73e8;padding:1px 4px;border-radius:3px}
+.ad{
+  width:92%;max-width:420px;
+  background:#fff;color:#111;border-radius:18px;
+  box-shadow:0 25px 50px rgba(0,0,0,.4);overflow:hidden
+}
+.ad-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;border-bottom:1px solid #e5e7eb
+}
+.badge{font-size:11px;color:#2563eb;border:1px solid #2563eb;padding:1px 4px;border-radius:3px}
 .close{cursor:pointer}
 .ad-body{padding:14px}
 .ad-body input{
-  width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #ccc
+  width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #cbd5e1
 }
-.count{font-size:12px;color:#d93025;margin-top:6px}
-.warn{display:none;margin-top:12px;color:#d93025;font-weight:900}
-.report{font-size:12px;margin-top:8px;color:#1a73e8;cursor:pointer}
+.count{font-size:12px;color:#dc2626;margin-top:6px}
+.warn{display:none;margin-top:12px;color:#dc2626;font-weight:900}
+.report{font-size:12px;margin-top:8px;color:#2563eb;cursor:pointer}
 
 /* Facebook style */
 .fb-top{display:flex;gap:8px;align-items:center}
@@ -88,30 +123,37 @@ main{
 .fb-sub{font-size:12px;color:#65676b}
 </style>
 </head>
+
 <body>
 
 <header>
   <div class="top">
-    <div class="logo">PulseNow Labs</div>
-    <div class="search"><input placeholder="Search breaking news…" oninput="filterNews(this.value)"></div>
+    <div class="logo">PulseNow</div>
+    <div class="nav">
+      <span>World</span><span>Tech</span><span>Science</span><span>Economy</span>
+    </div>
+    <div class="search">
+      <input placeholder="Search global news…" oninput="filterNews(this.value)">
+    </div>
   </div>
 </header>
 
 <main>
   <section class="card">
-    <div id="news"></div>
-    <div style="text-align:center;margin-top:10px">
+    <h2>Top Stories</h2>
+    <div class="grid" id="news"></div>
+    <div style="text-align:center;margin-top:14px">
       <button class="btn" onclick="loadMore()">Load more</button>
     </div>
   </section>
 
   <aside class="card">
-    <h3>Live Analytics</h3>
-    <p>Impressions: <strong id="imp">231,904</strong></p>
-    <p>CTR: <strong id="ctr">5.2%</strong></p>
-    <p>Winners online: <strong id="win">1,487</strong></p>
-    <p>Would‑have‑fallen counter: <strong id="fall">0</strong></p>
-    <p class="meta">Auto‑updated</p>
+    <h3>Live Metrics</h3>
+    <p>Impressions: <strong id="imp">389,112</strong></p>
+    <p>CTR: <strong id="ctr">6.1%</strong></p>
+    <p>Winners online: <strong id="win">1,932</strong></p>
+    <p>Would‑have‑fallen: <strong id="fall">0</strong></p>
+    <p class="meta">Updated in real‑time</p>
   </aside>
 </main>
 
@@ -166,48 +208,49 @@ main{
 <script>
 /* NEWS */
 const newsPool=[
-  "Government confirms AI now writes better apologies",
-  "Experts warn: your fridge knows when you cheat on your diet",
-  "Scientists discover socks teleport to another dimension",
-  "Man buys smart TV, TV starts hiding from him",
-  "Study finds people trust popups more than emails",
+  "World leaders debate regulating emotional AI assistants",
+  "Scientists confirm socks vanish due to pocket dimensions",
   "City installs AI traffic lights that judge drivers",
+  "Smart fridge locks itself after midnight",
+  "Researchers say people trust pop‑ups more than emails",
   "Hidden television discovered inside wall after 12 years",
-  "Waterproof towel declared unnecessary by scientists",
-  "New phone update gives battery emotions",
-  "Diet fridge opens only when you behave"
+  "Waterproof towel officially declared unnecessary",
+  "Battery update gives smartphones mood swings",
+  "Study finds diets fail when fridge learns passwords",
+  "Experts warn: your TV may be hiding from you"
 ];
-let page=0;
 function shuffle(a){return a.sort(()=>Math.random()-.5)}
-function render(items){
+function render(batch){
   const n=document.getElementById('news');
-  items.forEach(t=>{
-    const d=document.createElement('div');
-    d.className='news';
-    d.innerHTML=`<h3>${t}</h3><p>Verified sources • Breaking</p><div class="meta">PulseNow • Just now</div>`;
-    n.appendChild(d);
+  batch.forEach(t=>{
+    const a=document.createElement('div');
+    a.className='article';
+    a.innerHTML=`
+      <div class="thumb"></div>
+      <div class="body">
+        <h3>${t}</h3>
+        <p>Verified sources • Breaking analysis</p>
+        <div class="meta">PulseNow • Just now</div>
+      </div>`;
+    n.appendChild(a);
   });
 }
-function load(){
-  render(shuffle([...newsPool]).slice(0,5));
-}
-function loadMore(){
-  render(shuffle([...newsPool]).slice(0,5));
-}
+function loadInitial(){ render(shuffle([...newsPool]).slice(0,8)); }
+function loadMore(){ render(shuffle([...newsPool]).slice(0,6)); }
 function filterNews(q){
-  document.querySelectorAll('.news').forEach(n=>{
+  document.querySelectorAll('.article').forEach(n=>{
     n.style.display=n.innerText.toLowerCase().includes(q.toLowerCase())?'block':'none';
   });
 }
-load();
+loadInitial();
 
-/* FAKE STATS */
+/* STATS */
 setInterval(()=>{
-  imp.textContent=(+imp.textContent.replace(',','')+Math.floor(Math.random()*30)).toLocaleString();
-  win.textContent=(+win.textContent.replace(',','')+Math.floor(Math.random()*4)).toLocaleString();
+  imp.textContent=(+imp.textContent.replace(',','')+Math.floor(Math.random()*40)).toLocaleString();
+  win.textContent=(+win.textContent.replace(',','')+Math.floor(Math.random()*5)).toLocaleString();
 },3000);
 
-/* ADS */
+/* ADS — GUARANTEED SHOW */
 const prizes=[
   "a bag of Chipsy 🍟",
   "a waterproof towel 🧻💦",
@@ -229,28 +272,22 @@ function startTimer(){
   },1000);
 }
 function showAd(){
-  if(localStorage.adHidden) return;
-  setTimeout(()=>{
-    overlay.style.display='flex';
-    const g=Math.random()<0.5;
-    adG.hidden=!g; adF.hidden=g;
-    prizeG.innerHTML="You won <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
-    prizeF.innerHTML="Claim <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
-    startTimer();
-  },Math.random()*5000+3000);
+  overlay.style.display='flex';
+  const g=Math.random()<0.5;
+  adG.hidden=!g; adF.hidden=g;
+  prizeG.innerHTML="You won <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
+  prizeF.innerHTML="Claim <strong>"+prizes[Math.floor(Math.random()*prizes.length)]+"</strong>";
+  startTimer();
 }
+setTimeout(showAd,2000);
+
 function reveal(){
-  warnG.style.display='block'; warnF.style.display='block';
+  warnG.style.display='block';
+  warnF.style.display='block';
   fall.textContent=(+fall.textContent+1).toLocaleString();
 }
-function closeAd(){
-  overlay.style.display='none';
-  localStorage.adHidden=1;
-}
-function reportAd(){
-  alert("Reported. Always report suspicious ads.");
-}
-showAd();
+function closeAd(){ overlay.style.display='none'; }
+function reportAd(){ alert("Reported. Stay alert to suspicious ads."); }
 </script>
 </body>
 </html>
